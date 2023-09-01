@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F3E42845-8D56-4BB3-821D-8163AB1337F0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>weiamware-sdk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>weiamware</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)dll\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\temas\OneDrive\Рабочий стол\weiamware\cheat\helpers\nlohmann;C:\Users\temas\OneDrive\Рабочий стол\weiamware\cheat\imgui\freetype\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <TargetName>weiamware_debug</TargetName>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\temas\OneDrive\Рабочий стол\weiamware\cheat\imgui\freetype\lib;$(WindowsSDK_LibraryPath_x86);$(VC_LibraryPath_x86);$(DXSDK_DIR)Lib\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>weiamware_release</TargetName>
+    <IncludePath>$(SolutionDir)cheat\helpers\nlohmann;$(SolutionDir)cheat\imgui\freetype\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)cheat\imgui\freetype\lib;$(WindowsSDK_LibraryPath_x86);$(VC_LibraryPath_x86)</LibraryPath>
+    <OutDir>$(SolutionDir)dll\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CSGOSIMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;KUMORI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link />
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="cheat\console debug\console.cpp" />
+    <ClCompile Include="cheat\discord.cpp" />
+    <ClCompile Include="cheat\features\aimbot\aimbot.cpp" />
+    <ClCompile Include="cheat\features\animations\animations.cpp" />
+    <ClCompile Include="cheat\features\autowall\autowall.cpp" />
+    <ClCompile Include="cheat\features\backtrack\backtrack.cpp" />
+    <ClCompile Include="cheat\features\chams\chams.cpp" />
+    <ClCompile Include="cheat\features\config system\config.cpp" />
+    <ClCompile Include="cheat\features\engine prediction\prediction.cpp" />
+    <ClCompile Include="cheat\features\esp\esp.cpp" />
+    <ClCompile Include="cheat\features\glow\glow.cpp" />
+    <ClCompile Include="cheat\features\indicators\indicators.cpp" />
+    <ClCompile Include="cheat\features\misc\misc.cpp" />
+    <ClCompile Include="cheat\features\movement\movement.cpp" />
+    <ClCompile Include="cheat\features\notifications\notifications.cpp" />
+    <ClCompile Include="cheat\features\triggerbot\triggerbot.cpp" />
+    <ClCompile Include="cheat\helpers\input.cpp" />
+    <ClCompile Include="cheat\helpers\rpc\source\connection_win.cpp" />
+    <ClCompile Include="cheat\helpers\rpc\source\discord_register_win.cpp" />
+    <ClCompile Include="cheat\helpers\rpc\source\discord_rpc.cpp" />
+    <ClCompile Include="cheat\helpers\rpc\source\rpc_connection.cpp" />
+    <ClCompile Include="cheat\helpers\rpc\source\serialization.cpp" />
+    <ClCompile Include="cheat\imgui\imgui.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_draw.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_freetype.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_tables.cpp" />
+    <ClCompile Include="cheat\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="cheat\helpers\json.cpp" />
+    <ClCompile Include="cheat\helpers\math.cpp" />
+    <ClCompile Include="cheat\helpers\utils.cpp" />
+    <ClCompile Include="cheat\hooks\hooks.cpp" />
+    <ClCompile Include="cheat\hooks\minhook\buffer.c" />
+    <ClCompile Include="cheat\hooks\minhook\hde\hde32.c" />
+    <ClCompile Include="cheat\hooks\minhook\hde\hde64.c" />
+    <ClCompile Include="cheat\hooks\minhook\hook.c" />
+    <ClCompile Include="cheat\hooks\minhook\trampoline.c" />
+    <ClCompile Include="cheat\main.cpp" />
+    <ClCompile Include="cheat\menu.cpp" />
+    <ClCompile Include="cheat\renders\render-imgui.cpp" />
+    <ClCompile Include="cheat\renders\render-surface.cpp" />
+    <ClCompile Include="cheat\valve_sdk\interfaces\IMaterialSystem.cpp" />
+    <ClCompile Include="cheat\valve_sdk\math\Vector2D.cpp" />
+    <ClCompile Include="cheat\valve_sdk\math\Vector4D.cpp" />
+    <ClCompile Include="cheat\valve_sdk\math\VMatrix.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\characterset.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\checksum_crc.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\checksum_md5.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\Convar.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\UtlBuffer.cpp" />
+    <ClCompile Include="cheat\valve_sdk\misc\UtlString.cpp" />
+    <ClCompile Include="cheat\valve_sdk\netvars.cpp" />
+    <ClCompile Include="cheat\valve_sdk\sdk.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cheat\bytes.hpp" />
+    <ClInclude Include="cheat\console debug\console.hpp" />
+    <ClInclude Include="cheat\discord.hpp" />
+    <ClInclude Include="cheat\features\aimbot\aimbot.hpp" />
+    <ClInclude Include="cheat\features\animations\animations.hpp" />
+    <ClInclude Include="cheat\features\autowall\autowall.hpp" />
+    <ClInclude Include="cheat\features\backtrack\backtrack.hpp" />
+    <ClInclude Include="cheat\features\chams\chams.hpp" />
+    <ClInclude Include="cheat\features\config system\config.hpp" />
+    <ClInclude Include="cheat\features\engine prediction\prediction.hpp" />
+    <ClInclude Include="cheat\features\esp\esp.hpp" />
+    <ClInclude Include="cheat\features\glow\glow.hpp" />
+    <ClInclude Include="cheat\features\indicators\indicators.hpp" />
+    <ClInclude Include="cheat\features\misc\misc.hpp" />
+    <ClInclude Include="cheat\features\movement\movement.hpp" />
+    <ClInclude Include="cheat\features\notifications\notifications.hpp" />
+    <ClInclude Include="cheat\features\triggerbot\triggerbot.hpp" />
+    <ClInclude Include="cheat\helpers\fnv.hpp" />
+    <ClInclude Include="cheat\helpers\input.hpp" />
+    <ClInclude Include="cheat\helpers\rpc\includes\discord_register.h" />
+    <ClInclude Include="cheat\helpers\rpc\includes\discord_rpc.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\backoff.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\connection.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\msg_queue.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\allocators.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\document.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\encodedstream.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\encodings.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\error\en.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\error\error.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\filereadstream.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\filewritestream.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\fwd.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\clzll.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\itoa.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\meta.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\pow10.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\regex.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\stack.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\strtod.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\internal\swap.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\istreamwrapper.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\memorybuffer.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\memorystream.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\pointer.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\prettywriter.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\rapidjson.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\reader.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\schema.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\stream.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\stringbuffer.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rapidjson\writer.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\rpc_connection.h" />
+    <ClInclude Include="cheat\helpers\rpc\source\serialization.h" />
+    <ClInclude Include="cheat\helpers\singleton.hpp" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\ftconfig.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\ftheader.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\ftmodule.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\ftoption.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\ftstdlib.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\integer-types.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\mac-support.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\config\public-macros.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\freetype.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftadvanc.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftbbox.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftbdf.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftbitmap.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftbzip2.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftcache.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftchapters.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftcid.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftcolor.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftdriver.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\fterrdef.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\fterrors.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftfntfmt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftgasp.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftglyph.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftgxval.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftgzip.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftimage.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftincrem.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftlcdfil.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftlist.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftlogging.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftlzw.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftmac.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftmm.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftmodapi.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftmoderr.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftotval.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftoutln.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftparams.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftpfr.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftrender.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftsizes.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftsnames.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftstroke.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftsynth.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftsystem.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\fttrigon.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\fttypes.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ftwinfnt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\autohint.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\cffotypes.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\cfftypes.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftcalc.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftdebug.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftdrv.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\fthash.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftmemory.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftobjs.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftpic.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftpsprop.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftrfork.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftserv.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftstream.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\fttrace.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\ftvalid.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\internal.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\psaux.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\pshints.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svcfftl.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svcid.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svfntfmt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svkern.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svmetric.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svmm.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svotval.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svprop.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\sfnt.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\t1types.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\internal\tttypes.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\t1tables.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\ttnameid.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\tttables.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\freetype\tttags.h" />
+    <ClInclude Include="cheat\imgui\freetype\include\ft2build.h" />
+    <ClInclude Include="cheat\imgui\imconfig.h" />
+    <ClInclude Include="cheat\imgui\imgui.h" />
+    <ClInclude Include="cheat\imgui\imgui_freetype.h" />
+    <ClInclude Include="cheat\imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="cheat\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="cheat\imgui\imgui_internal.h" />
+    <ClInclude Include="cheat\imgui\imstb_rectpack.h" />
+    <ClInclude Include="cheat\imgui\imstb_textedit.h" />
+    <ClInclude Include="cheat\imgui\imstb_truetype.h" />
+    <ClInclude Include="cheat\helpers\json.hpp" />
+    <ClInclude Include="cheat\helpers\math.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\byte_container_with_subtype.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\conversions\from_json.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\conversions\to_chars.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\conversions\to_json.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\exceptions.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\hash.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\binary_reader.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\input_adapters.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\json_sax.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\lexer.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\parser.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\input\position_t.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\internal_iterator.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\iteration_proxy.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\iterator_traits.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\iter_impl.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\json_reverse_iterator.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\iterators\primitive_iterator.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\json_pointer.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\json_ref.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\macro_scope.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\macro_unscope.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\cpp_future.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\detected.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\identity_tag.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\is_sax.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\type_traits.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\meta\void_t.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\output\binary_writer.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\output\output_adapters.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\output\serializer.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\string_escape.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\detail\value_t.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\json.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\ordered_map.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\thirdparty\hedley\hedley.hpp" />
+    <ClInclude Include="cheat\helpers\nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="cheat\helpers\utils.hpp" />
+    <ClInclude Include="cheat\helpers\xor.hpp" />
+    <ClInclude Include="cheat\hooks\hooks.hpp" />
+    <ClInclude Include="cheat\hooks\minhook\buffer.h" />
+    <ClInclude Include="cheat\hooks\minhook\hde\hde32.h" />
+    <ClInclude Include="cheat\hooks\minhook\hde\hde64.h" />
+    <ClInclude Include="cheat\hooks\minhook\hde\pstdint.h" />
+    <ClInclude Include="cheat\hooks\minhook\hde\table32.h" />
+    <ClInclude Include="cheat\hooks\minhook\hde\table64.h" />
+    <ClInclude Include="cheat\hooks\minhook\minhook.h" />
+    <ClInclude Include="cheat\hooks\minhook\trampoline.h" />
+    <ClInclude Include="cheat\menu.hpp" />
+    <ClInclude Include="cheat\renders\render-imgui.hpp" />
+    <ClInclude Include="cheat\renders\render-surface.hpp" />
+    <ClInclude Include="cheat\singleton.hpp" />
+    <ClInclude Include="cheat\valve_sdk\csgostructs.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\CClientState.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\CInput.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IAppSystem.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IBaseClientDll.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientEntity.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientEntityList.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientMode.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientNetworkable.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientRenderable.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientThinkable.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IClientUnknown.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\ICollideable.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IConsole.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IConVar.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\ICvar.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IEffects.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IEngineSound.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IEngineTrace.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IGameEventmanager.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IGameTypes.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IInputSystem.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IKeyValues.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IMaterialSystem.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IMDLCache.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IModelCache.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IMoveHelper.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IPanel.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IPhysics.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IPhysicsCollision.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IPrediction.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IRefCounted.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IRenderView.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IStudioRender.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\ISurface.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IVDebugOverlay.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IVEngineClient.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IViewRender.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IVModelInfoClient.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IVModelRender.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\IVModelRenderBeams.hpp" />
+    <ClInclude Include="cheat\valve_sdk\interfaces\ParticleSimulation.hpp" />
+    <ClInclude Include="cheat\valve_sdk\math\QAngle.hpp" />
+    <ClInclude Include="cheat\valve_sdk\math\Vector.hpp" />
+    <ClInclude Include="cheat\valve_sdk\math\Vector2D.hpp" />
+    <ClInclude Include="cheat\valve_sdk\math\Vector4D.hpp" />
+    <ClInclude Include="cheat\valve_sdk\math\VMatrix.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\BaseHandle.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\characterset.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\checksum_crc.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\checksum_md5.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\ClientClass.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\Color.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\Convar.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\CUserCmd.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\datamap.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\dlight.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\EHandle.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\Enums.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\GlobalVars.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\glow_outline_effect.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\IHandleEntity.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\platform.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\Recv.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\Studio.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\UtlBuffer.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\UtlMemory.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\UtlString.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\UtlVector.hpp" />
+    <ClInclude Include="cheat\valve_sdk\misc\vfunc.hpp" />
+    <ClInclude Include="cheat\valve_sdk\netvars.hpp" />
+    <ClInclude Include="cheat\valve_sdk\sdk.hpp" />
+    <ClInclude Include="cheat\variables.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="cheat\helpers\d3d9x\lib\d3dx9.lib" />
+    <Library Include="cheat\imgui\freetype\lib\freetype.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
