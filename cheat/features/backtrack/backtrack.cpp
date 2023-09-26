@@ -34,7 +34,7 @@ void backtrack::run(CUserCmd* cmd)
 
 	auto weapon = csgo::local_player->active_weapon();
 
-	if (!weapon || !weapon->isgun() || weapon->clip1_count() == 0)
+	if (!weapon || weapon->clip1_count() == 0)
 	{
 		data.clear();
 

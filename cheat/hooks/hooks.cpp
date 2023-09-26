@@ -318,23 +318,16 @@ bool __stdcall create_move::run(float input_sample_frametime, CUserCmd* cmd)
 	}
 
 	csgo::local_player = static_cast<player_t*>(g_EntityList->GetClientEntity(g_EngineClient->GetLocalPlayer()));
-	csgo::global_cmd = cmd;
 
 	misc::get().rankreavel(cmd);
 	misc::get().usespammer(cmd);
 	misc::get().forcecrosshair();
 	misc::get().recoilcrosshair();
 
-	const auto pre_flags = csgo::local_player->flags();
-	const auto pre_movetype = csgo::local_player->move_type();
-	const auto pre_velocity = csgo::local_player->velocity();
-
 	movement::get().resetdetection();
 	movement::get().pre_prediction(cmd);
-
 	movement::get().bunnyhop(cmd);
 	movement::get().infinityduck(cmd);
-	movement::get().jumpstats(cmd);
 	indicators::get().velocitygraph_gather_data();
 	indicators::get().staminagraph_gather_data();
 
@@ -422,6 +415,9 @@ void __stdcall frame_stage_notify::run(int stage)
 	misc::get().changeviewmodeloffsets();
 	misc::get().changeviewmodelfov();
 	misc::get().changeweaponswayscale();
+	misc::get().removeflash();
+	misc::get().removesmoke();
+	misc::get().removefire();
 
 	return frame_stage_notify_original(g_CHLClient, stage);
 }

@@ -42,6 +42,7 @@ namespace variables
 			inline float autoduck_time = 0.4f;
 			inline bool edgebug = false;
 			inline bool edgebug_strafetoedge = false;
+			inline bool edgebug_blockbuttons = false;
 			inline int edgebug_ticks = 64;
 			inline float edgebug_lock = 10.0f;
 			inline int edgebug_key = 0;
@@ -148,7 +149,13 @@ namespace variables
 			inline int regionchanger_type = 0;
 			inline bool chatmessage_rainbow = false;
 			inline int chatmessage_color = 0;
-			inline unsigned char screenmessage_color[3]{ 255, 0, 0 };
+			inline bool removeflash = false;
+			inline int removeflash_time = 100;
+			inline bool removewireframesmoke = false;
+			inline bool removewireframefire = false;
+			inline bool removefullsmoke = false;
+			inline bool removefullfire = false;
+			inline unsigned char screenmessage_color[3]{ 255, 0, 0 }; /* ETO PIZDEC... PROSTO TRASH */
 		}
 
 		namespace glow

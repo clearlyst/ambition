@@ -895,6 +895,20 @@ void menu::render()
                 {
                     sliderfloat(xorstr("weapon sway scale"), &variables::config::misc::weaponswayscale, 0.0f, 100.0f, "%.2f", ImGuiSliderFlags_AlwaysClamp);
                 }
+                if (ImGui::BeginCombo(xorstr("removes"), xorstr("select remove"), ImGuiComboFlags_NoArrowButton))
+                {
+                    ImGui::Selectable(xorstr("wireframe smoke"), &variables::config::misc::removewireframesmoke, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("wireframe fire"), &variables::config::misc::removewireframefire, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("full smoke"), &variables::config::misc::removefullsmoke, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("full fire"), &variables::config::misc::removefullfire, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("flash"), &variables::config::misc::removeflash, ImGuiSelectableFlags_DontClosePopups);
+              
+                    ImGui::EndCombo();
+                }
+                if (variables::config::misc::removeflash)
+                {
+                    sliderint(xorstr("remove flash reduce"), &variables::config::misc::removeflash_time, 0, 100, "%d", ImGuiSliderFlags_AlwaysClamp);
+                }
                 ImGui::PopFont();
             }
             ImGui::EndChild();
@@ -968,6 +982,7 @@ void menu::render()
                 checkbox(xorstr("edge bug"), &variables::config::movement::edgebug); ImGui::SameLine(); keybind(xorstr("edge bug key"), &variables::config::movement::edgebug_key, &variables::config::movement::edgebug_key_type);
                 if (variables::config::movement::edgebug)
                 {
+                    checkbox(xorstr("edge bug block buttons"), &variables::config::movement::edgebug_blockbuttons);
                     checkbox(xorstr("edge bug asist to edge/advanced detection"), &variables::config::movement::edgebug_strafetoedge);
                     sliderint(xorstr("edge bug ticks"), &variables::config::movement::edgebug_ticks, 0, 128, "%d", ImGuiSliderFlags_AlwaysClamp);
                     sliderfloat(xorstr("edge bug strength lock"), &variables::config::movement::edgebug_lock, 1.0f, 100.0f, "%.2f", ImGuiSliderFlags_AlwaysClamp);

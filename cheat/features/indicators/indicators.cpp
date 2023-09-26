@@ -107,7 +107,18 @@ void indicators::velocity()
         }
     }
 
-    imguirender::get().AddText(indicatorsfont, 29.0f, ImVec2(width / 2, (height / 2) + variables::config::indicators::indicator_position), place_holder_velocity, variables::config::indicators::velocity_style == 2 ? lerp(color(variables::config::indicators::velocity_from_clr[0], variables::config::indicators::velocity_from_clr[1], variables::config::indicators::velocity_from_clr[2], variables::config::indicators::velocity_from_clr[3]), color(variables::config::indicators::velocity_to_clr[0], variables::config::indicators::velocity_to_clr[1], variables::config::indicators::velocity_to_clr[2], variables::config::indicators::velocity_to_clr[3]), 1.f * (float(velocity) / variables::config::indicators::velocity_fade_strength)) : variables::config::indicators::velocity_style == 1 ? huesaturationbrightnessalpha(1.f * (float(velocity) / variables::config::indicators::velocity_rainbow_hue), variables::config::indicators::velocity_rainbow_saturation, 1.0f, 1.0f) : velocity_color(last_delta_velocity), color(0, 0, 0), false, true, true, false);
+    float time;
+
+    if (velocity < variables::config::indicators::velocity_fade_strength)
+    {
+        time = 1.f * (float(velocity) / variables::config::indicators::velocity_fade_strength);
+    }
+    else
+    {
+        time = 1.f * float(velocity) / (float(velocity) * 0.5f);
+    }
+
+    imguirender::get().AddText(indicatorsfont, 29.0f, ImVec2(width / 2, (height / 2) + variables::config::indicators::indicator_position), place_holder_velocity, variables::config::indicators::velocity_style == 2 ? lerp(color(variables::config::indicators::velocity_from_clr[0], variables::config::indicators::velocity_from_clr[1], variables::config::indicators::velocity_from_clr[2], variables::config::indicators::velocity_from_clr[3]), color(variables::config::indicators::velocity_to_clr[0], variables::config::indicators::velocity_to_clr[1], variables::config::indicators::velocity_to_clr[2], variables::config::indicators::velocity_to_clr[3]), time) : variables::config::indicators::velocity_style == 1 ? huesaturationbrightnessalpha(1.f * (float(velocity) / variables::config::indicators::velocity_rainbow_hue), variables::config::indicators::velocity_rainbow_saturation, 1.0f, 1.0f) : velocity_color(last_delta_velocity), color(0, 0, 0), false, true, true, false);
 
     if (fabs(g_GlobalVars->tickcount - lasttick) > 5)
     {

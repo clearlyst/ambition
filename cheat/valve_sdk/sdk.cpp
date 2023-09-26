@@ -201,5 +201,4 @@ void interfaces::release()
 namespace csgo
 {
     player_t* local_player = nullptr;
-    CUserCmd* global_cmd = nullptr;
 }

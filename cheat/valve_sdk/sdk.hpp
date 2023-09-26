@@ -119,5 +119,4 @@ extern float(__cdecl* RandomFloat)(float min, float max);
 namespace csgo
 {
     extern player_t* local_player;
-    extern CUserCmd* global_cmd;
 }

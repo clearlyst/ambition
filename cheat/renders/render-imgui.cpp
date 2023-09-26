@@ -10,63 +10,20 @@ ImFont* firstespfont;
 ImFont* secondespfont;
 ImFont* weaponiconfont;
 ImFont* screenmiscfont;
-
-/*
-ImFont* menufont;
-ImFont* menutextfont;
-ImFont* espfontfirstfont;
-ImFont* espfontsecondfont;
-ImFont* indicatorsfont;
-ImFont* screenmessage;
-ImFont* espfonticon;
-ImFont* spectatorlistiwebzfontname;
-ImFont* spectatorlistiwebzfontspectators;
-*/
+ImFont* interwebztitlefont;
+ImFont* interwebztextfont;
 
 void setupfonts()
 {
     auto& io = ImGui::GetIO();
 	/*
-    ImFontConfig screenmessageconfig;
-    screenmessageconfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Monochrome | ImGuiFreeTypeBuilderFlags_MonoHinting;
-    screenmessageconfig.PixelSnapH = true;
-    screenmessageconfig.SizePixels = 10.0f;
-
-    ImFontConfig espfontconfig;
-    espfontconfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Monochrome | ImGuiFreeTypeBuilderFlags_MonoHinting;
-    espfontconfig.PixelSnapH = true;
-    espfontconfig.SizePixels = 12.0f;
-    espfontconfig.RasterizerMultiply = 2.0f;
-
-    ImFontConfig espiconfontconfig;
-    espiconfontconfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_NoHinting | ImGuiFreeTypeBuilderFlags_NoAutoHint;
-    espiconfontconfig.PixelSnapH = true;
-    espiconfontconfig.SizePixels = 12.0f;
-    espiconfontconfig.RasterizerMultiply = 2.0f;
-
 	ImFontConfig menutextfontconfig;
 	menutextfontconfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Monochrome | ImGuiFreeTypeBuilderFlags_MonoHinting;
 	menutextfontconfig.PixelSnapH = true;
 	menutextfontconfig.RasterizerMultiply = 2.0f;
 
-    char windows_directory[MAX_PATH];
-    GetWindowsDirectoryA(windows_directory, MAX_PATH);
-
     std::string tahoma_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\tahoma.ttf");
     std::string tahoma_bold_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\tahomabd.ttf");
-	std::string verdana_bold_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\verdanab.ttf");
-    std::string lucida_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\lucon.ttf");
-    std::string icon_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\astriumwep.ttf");
-
-    ImGui::GetIO().FontDefault = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &menutextfontconfig);
-    menutextfont = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 12.0f, &menutextfontconfig);
-    menufont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &menutextfontconfig);
-    indicatorsbigfont = io.Fonts->AddFontFromFileTTF(verdana_bold_font_directory.c_str(), 28.0f, NULL);
-    screenmessage = io.Fonts->AddFontFromFileTTF(lucida_font_directory.c_str(), 10.0f, &screenmessageconfig);
-    espfontfirstfont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &espfontconfig, io.Fonts->GetGlyphRangesCyrillic());
-    espfontsecondfont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &espfontconfig, io.Fonts->GetGlyphRangesCyrillic());
-	espfonticon = io.Fonts->AddFontFromFileTTF(icon_font_directory.c_str(), 12.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-
 	spectatorlistiwebzfontname = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 13.0f, &menutextfontconfig, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 	spectatorlistiwebzfontspectators = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 11.0f, &menutextfontconfig, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 	*/
@@ -113,6 +70,11 @@ void setupfonts()
 	screenmiscfontconfig.SizePixels = 12.0f;
 	screenmiscfontconfig.RasterizerMultiply = 1.0f;
 
+	ImFontConfig interwebzconfig;
+	interwebzconfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Monochrome | ImGuiFreeTypeBuilderFlags_MonoHinting;
+	interwebzconfig.PixelSnapH = true;
+	interwebzconfig.RasterizerMultiply = 1.0f;
+
 	char windows_directory[MAX_PATH];
 	GetWindowsDirectoryA(windows_directory, MAX_PATH);
 
@@ -136,6 +98,8 @@ void setupfonts()
 	secondespfont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &secondespfontconfig, io.Fonts->GetGlyphRangesCyrillic());
 	screenmiscfont = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 12.0f, &screenmiscfontconfig, io.Fonts->GetGlyphRangesCyrillic());
 	weaponiconfont = io.Fonts->AddFontFromFileTTF(weapon_icon_font_directory.c_str(), 12.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+	interwebztitlefont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 13.0f, &interwebzconfig, io.Fonts->GetGlyphRangesCyrillic());
+	interwebztextfont = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 11.0f, &interwebzconfig, io.Fonts->GetGlyphRangesCyrillic());
 
     ImGuiFreeType::BuildFontAtlas(io.Fonts);
 }
@@ -257,22 +221,22 @@ void imguirender::Instance()
 		{
 			const auto& pObject = std::any_cast<ArcObject_t>(draw.m_Object);
 
-			ImGui::GetForegroundDrawList()->PathArcTo(pObject.Pos, pObject.Radius, DEG2RAD(pObject.MinAngle), DEG2RAD(pObject.MaxAngle), 32);
-			ImGui::GetForegroundDrawList()->PathStroke(getU32(pObject.Color), false, pObject.Thikness);
+			ImGui::GetBackgroundDrawList()->PathArcTo(pObject.Pos, pObject.Radius, DEG2RAD(pObject.MinAngle), DEG2RAD(pObject.MaxAngle), 32);
+			ImGui::GetBackgroundDrawList()->PathStroke(getU32(pObject.Color), false, pObject.Thikness);
 		}
 
 		if (draw.m_Type == DrawObject_Triangle)
 		{
 			const auto& pObject = std::any_cast<TriangleObject_t>(draw.m_Object);
 
-			ImGui::GetForegroundDrawList()->AddTriangle(ImVec2(pObject.m_Min.x, pObject.m_Min.y), ImVec2(pObject.m_Mun.x, pObject.m_Mun.y), ImVec2(pObject.m_Max.x, pObject.m_Max.y), getU32(pObject.m_Color), pObject.m_fThickness);
+			ImGui::GetBackgroundDrawList()->AddTriangle(ImVec2(pObject.m_Min.x, pObject.m_Min.y), ImVec2(pObject.m_Mun.x, pObject.m_Mun.y), ImVec2(pObject.m_Max.x, pObject.m_Max.y), getU32(pObject.m_Color), pObject.m_fThickness);
 		}
 
 		if (draw.m_Type == DrawObject_TriangleFilled)
 		{
 			const auto& pObject = std::any_cast<TriangleFilledObject_t>(draw.m_Object);
 
-			ImGui::GetForegroundDrawList()->AddTriangleFilled(ImVec2(pObject.m_Min.x, pObject.m_Min.y), ImVec2(pObject.m_Mun.x, pObject.m_Mun.y), ImVec2(pObject.m_Max.x, pObject.m_Max.y), getU32(pObject.m_Color));
+			ImGui::GetBackgroundDrawList()->AddTriangleFilled(ImVec2(pObject.m_Min.x, pObject.m_Min.y), ImVec2(pObject.m_Mun.x, pObject.m_Mun.y), ImVec2(pObject.m_Max.x, pObject.m_Max.y), getU32(pObject.m_Color));
 		}
 
 		if (draw.m_Type == DrawObject_TEXT)
@@ -300,6 +264,8 @@ void imguirender::Instance()
             {
                 ImGui::GetBackgroundDrawList()->AddText(pObject.m_Font, pObject.m_fFontSize, ImVec2(pObject.m_Pos.x + 1, pObject.m_Pos.y + 1), getU32(color(pObject.m_Color_outline[0], pObject.m_Color_outline[1], pObject.m_Color_outline[2], pObject.m_Color.get_alpha())), pObject.m_Text.c_str());
                 ImGui::GetBackgroundDrawList()->AddText(pObject.m_Font, pObject.m_fFontSize, ImVec2(pObject.m_Pos.x - 1, pObject.m_Pos.y - 1), getU32(color(pObject.m_Color_outline[0], pObject.m_Color_outline[1], pObject.m_Color_outline[2], pObject.m_Color.get_alpha())), pObject.m_Text.c_str());
+				ImGui::GetBackgroundDrawList()->AddText(pObject.m_Font, pObject.m_fFontSize, ImVec2(pObject.m_Pos.x + 1, pObject.m_Pos.y - 1), getU32(color(pObject.m_Color_outline[0], pObject.m_Color_outline[1], pObject.m_Color_outline[2], pObject.m_Color.get_alpha())), pObject.m_Text.c_str());
+				ImGui::GetBackgroundDrawList()->AddText(pObject.m_Font, pObject.m_fFontSize, ImVec2(pObject.m_Pos.x - 1, pObject.m_Pos.y + 1), getU32(color(pObject.m_Color_outline[0], pObject.m_Color_outline[1], pObject.m_Color_outline[2], pObject.m_Color.get_alpha())), pObject.m_Text.c_str());
             }
 
 

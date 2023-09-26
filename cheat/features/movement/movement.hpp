@@ -45,8 +45,6 @@ public:
 
     void blockbot(CUserCmd* cmd);
 
-	void jumpstats(CUserCmd* cmd);
-
     bool edgebug_should;
     bool pixelsurf_should;
 

@@ -35,6 +35,12 @@ public:
 
 	void regionchanger();
 
+	void removeflash();
+
+	void removesmoke();
+
+	void removefire();
+
 private:
     std::string spotifytitle = "";
 

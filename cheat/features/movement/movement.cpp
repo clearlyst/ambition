@@ -8,7 +8,7 @@ void restore_to_predicted_frame(int predicted_frame)
 
 void movement::bunnyhop(CUserCmd* cmd)
 {
-	if (!variables::config::movement::bunnyhop || !g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!variables::config::movement::bunnyhop)
 	{
 		return;
 	}
@@ -18,7 +18,12 @@ void movement::bunnyhop(CUserCmd* cmd)
 		return;
 	}
 
-	if (Utils::bind(variables::config::movement::ladderedgejump_key, variables::config::movement::ladderedgejump_key_type))
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -28,29 +33,9 @@ void movement::bunnyhop(CUserCmd* cmd)
 		return;
 	}
 
-	static bool bLastJumped = false;
-	static bool bShouldFake = false;
-
-	if (!bLastJumped && bShouldFake)
+	if (!(csgo::local_player->flags() & FL_ONGROUND))
 	{
-		bShouldFake = false;
-        cmd->buttons |= IN_JUMP;
-	}
-	else if (cmd->buttons & IN_JUMP)
-	{
-		if (csgo::local_player->flags() & FL_ONGROUND)
-		{
-			bShouldFake = bLastJumped = true;
-		}
-		else
-		{
-			cmd->buttons &= ~IN_JUMP;
-			bLastJumped = false;
-		}
-	}
-	else
-	{
-		bShouldFake = bLastJumped = false;
+		cmd->buttons &= ~IN_JUMP;
 	}
 }
 
@@ -131,7 +116,12 @@ void movement::edgejump(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -161,7 +151,12 @@ void movement::minijump(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -199,7 +194,12 @@ void movement::longjump(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -245,7 +245,12 @@ void movement::ladderedgejump(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -268,7 +273,12 @@ void movement::jumpbug(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -285,11 +295,6 @@ void movement::jumpbug(CUserCmd* cmd)
 	}
 
 	jbsuccesful = (!(edgebug_should || pixelsurf_should) && csgo::local_player->velocity().z > engine_prediction::get().data.m_vecVelocity.z && !(engine_prediction::get().data.m_fFlags & FL_ONGROUND) && !(csgo::local_player->flags() & FL_ONGROUND) && csgo::local_player->move_type() != MOVETYPE_NOCLIP && csgo::local_player->move_type() != MOVETYPE_OBSERVER) ? 1 : 0;
-
-	if (jbsuccesful == 1)
-	{
-		//notify::get().run("jumpbugged", true, true, false);
-	}
 }
 
 void movement::autoduck(CUserCmd* cmd)
@@ -299,17 +304,22 @@ void movement::autoduck(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (Utils::bind(variables::config::movement::edgebug_key, variables::config::movement::edgebug_key_type) || Utils::bind(variables::config::movement::minijump_key, variables::config::movement::minijump_key_type) || Utils::bind(variables::config::movement::jumpbug_key, variables::config::movement::jumpbug_key_type))
+	{
+		return;
+	}
+
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
 
 	if (csgo::local_player->move_type() == MOVETYPE_LADDER || csgo::local_player->move_type() == MOVETYPE_NOCLIP)
-	{
-		return;
-	}
-
-	if (Utils::bind(variables::config::movement::edgebug_key, variables::config::movement::edgebug_key_type) || Utils::bind(variables::config::movement::minijump_key, variables::config::movement::minijump_key_type) || Utils::bind(variables::config::movement::jumpbug_key, variables::config::movement::jumpbug_key_type))
 	{
 		return;
 	}
@@ -330,7 +340,12 @@ void movement::infinityduck(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return;
 	}
@@ -343,9 +358,21 @@ void movement::infinityduck(CUserCmd* cmd)
 	cmd->buttons |= IN_BULLRUSH;
 }
 
+/* ETO PIZDEC... PROSTO TRASH */
+
 bool edgebug_detection(CUserCmd* cmd)
 {
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!variables::config::movement::edgebug || !Utils::bind(variables::config::movement::edgebug_key, variables::config::movement::edgebug_key_type))
+	{ 
+		return false;
+	}
+
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return false;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
 	{
 		return false;
 	}
@@ -355,15 +382,15 @@ bool edgebug_detection(CUserCmd* cmd)
 		return false;
 	}
 
-	if (csgo::local_player->flags() & FL_ONGROUND || engine_prediction::get().data.m_fFlags & FL_ONGROUND)
-	{
-		return false;
-	}
-
+	//if (csgo::local_player->flags() & FL_ONGROUND || engine_prediction::get().data.m_fFlags & FL_ONGROUND)
+	//{
+	//	return false;
+	//}
+	//
 	static ConVar* sv_gravity = g_CVar->FindVar(xorstr("sv_gravity"));
-
+	
 	float gravity_vel = (sv_gravity->GetFloat() * 0.5f * g_GlobalVars->interval_per_tick);
-
+	
 	if (engine_prediction::get().data.m_vecVelocity.z < -gravity_vel && round(csgo::local_player->velocity().z) == -round(gravity_vel))
 	{
 		return true;
@@ -372,12 +399,12 @@ bool edgebug_detection(CUserCmd* cmd)
 	if (engine_prediction::get().data.m_vecVelocity.z < -5.62895 && csgo::local_player->velocity().z > engine_prediction::get().data.m_vecVelocity.z && csgo::local_player->velocity().z < -8.293333)
 	{
 		float velocty_before_engineprediction = csgo::local_player->velocity().z;
-
+		
 		engine_prediction::get().repredict(cmd);
 		engine_prediction::get().restore();
 
-		static auto sv_gravity_after_engineprediction = g_CVar->FindVar(xorstr("sv_gravity"));
-		const float gravity_velocity_constant = roundf(-sv_gravity_after_engineprediction->GetFloat() * g_GlobalVars->interval_per_tick + velocty_before_engineprediction);
+		static float get_gravity_float = g_CVar->FindVar(xorstr("sv_gravity"))->GetFloat();
+		float gravity_velocity_constant = roundf(-get_gravity_float * g_GlobalVars->interval_per_tick + velocty_before_engineprediction);
 
 		if (gravity_velocity_constant == round(csgo::local_player->velocity().z))
 		{
@@ -432,19 +459,21 @@ void movement::autoedgebug(CUserCmd* cmd)
 
 	if (!variables::config::movement::edgebug || !Utils::bind(variables::config::movement::edgebug_key, variables::config::movement::edgebug_key_type))
 	{
-		edgebug_should = false;
 		return;
 	}
 
-	if (!csgo::local_player || !csgo::local_player->is_alive() || !g_EngineClient->IsInGame() || !g_EngineClient->IsConnected())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
 	{
-		edgebug_should = false;
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
+	{
 		return;
 	}
 
 	if (csgo::local_player->move_type() == MOVETYPE_LADDER || csgo::local_player->move_type() == MOVETYPE_NOCLIP)
 	{
-		edgebug_should = false;
 		return;
 	}
 
@@ -454,7 +483,7 @@ void movement::autoedgebug(CUserCmd* cmd)
 	float highest_ground = 0.f;
 	int search_dir = 0;
 	int last_pred_ground = 0;
-
+	
 	for (int t = 0; edgebug_pred_cound < variables::config::movement::edgebug_ticks; t++)
 	{
 		restore_to_predicted_frame(g_Prediction->m_nCommandsPredicted() - 1);
@@ -466,7 +495,7 @@ void movement::autoedgebug(CUserCmd* cmd)
 			t = last_type;
 		}
 
-		bool do_strafe = variables::config::movement::edgebug_strafetoedge ? (t < 2 || t > 3) : false;
+		bool do_strafe = variables::config::movement::edgebug_strafetoedge ? (t <= 2 || t >= 3) : false;
 		bool do_duck = t == 1 || t == 3;
 
 		if (t > 3)
@@ -497,8 +526,11 @@ void movement::autoedgebug(CUserCmd* cmd)
 			}
 			else
 			{
-				cmd->forwardmove = 0.f;
-				cmd->sidemove = 0.f;
+				if (variables::config::movement::edgebug_blockbuttons)
+				{
+					cmd->forwardmove = 0.f;
+					cmd->sidemove = 0.f;
+				}
 			}
 
 			if (do_duck)
@@ -991,7 +1023,17 @@ void movement::blockbot(CUserCmd* cmd)
 		return;
 	}
 
-	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+	if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+	{
+		return;
+	}
+
+	if (!csgo::local_player || !csgo::local_player->is_alive())
+	{
+		return;
+	}
+
+	if (csgo::local_player->move_type() == MOVETYPE_LADDER || csgo::local_player->move_type() == MOVETYPE_NOCLIP)
 	{
 		return;
 	}
@@ -1055,6 +1097,8 @@ void movement::blockbot(CUserCmd* cmd)
 		}
 	}
 }
+
+/*
 float height;
 float distance;
 bool strafe_left;
@@ -1290,7 +1334,6 @@ void movement::jumpstats(CUserCmd* cmd)
 	}
 }
 
-/*
 void movement::autoedgebug(CUserCmd* cmd)
 {
 	if (!variables::config::movement::edgebug || !Utils::bind(variables::config::movement::edgebug_key, variables::config::movement::edgebug_key_type))

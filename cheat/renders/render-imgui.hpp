@@ -139,6 +139,8 @@ extern ImFont* firstespfont;
 extern ImFont* secondespfont;
 extern ImFont* weaponiconfont;
 extern ImFont* screenmiscfont;
+extern ImFont* interwebztitlefont;
+extern ImFont* interwebztextfont;
 
 
 /*

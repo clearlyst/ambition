@@ -1,5 +1,6 @@
 #include "misc.hpp"
 #include <TlHelp32.h>
+#include <Windows.h>
 
 void misc::spectatorlist()
 {
@@ -80,7 +81,6 @@ void misc::spectatorlist()
             spectators += spectating_info.fakeplayer ? xorstr("[bot] ") + std::string(spectating_info.szName) + u8"\n" : std::string(spectating_info.szName) + u8"\n";
         }
     }
-
 
     imguirender::get().AddText(screenmiscfont, 12.0f, ImVec2(5, 5), spectators, color(255, 255, 255, 255), color(0, 0, 0), false, true);
 }
@@ -436,4 +436,86 @@ void misc::regionchanger()
     static std::string* force_relay_cluster_value = *(std::string**)(Utils::PatternScan2(xorstr("steamnetworkingsockets.dll"), xorstr("B8 ? ? ? ? B9 ? ? ? ? 0F 43")) + 1);
 
     *force_relay_cluster_value = dataCentersList[variables::config::misc::regionchanger_type];
+}
+
+void misc::removeflash()
+{
+    if (!variables::config::misc::removeflash)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+    {
+        return;
+    }
+
+    csgo::local_player->flash_alpha() = 255.0f - variables::config::misc::removeflash_time * 2.55f;
+}
+
+void misc::removesmoke()
+{
+    if (!variables::config::misc::removewireframesmoke || !variables::config::misc::removefullsmoke)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+    {
+        return;
+    }
+
+    std::vector<const char*> smoke_materials =
+    {
+        xorstr("particle/vistasmokev1/vistasmokev1_fire"),
+        xorstr("particle/vistasmokev1/vistasmokev1_smokegrenade"),
+        xorstr("particle/vistasmokev1/vistasmokev1_emods"),
+        xorstr("particle/vistasmokev1/vistasmokev1_emods_impactdust"),
+    };
+
+    for (auto materials : smoke_materials)
+    {
+        IMaterial* get_smoke_material = g_MatSystem->FindMaterial(materials, TEXTURE_GROUP_OTHER);
+
+        get_smoke_material->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, variables::config::misc::removewireframesmoke);
+        get_smoke_material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, variables::config::misc::removefullsmoke);
+    }
+}
+
+void misc::removefire()
+{
+    if (!variables::config::misc::removewireframefire || !variables::config::misc::removefullfire)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+    {
+        return;
+    }
+
+    std::vector<const char*> fire_materials =
+    {
+        xorstr("particle/fire_burning_character/fire_env_fire"),
+        xorstr("particle/fire_burning_character/fire_env_fire_depthblend"),
+        xorstr("particle/fire_burning_character/fire_burning_character_depthblend"),
+        xorstr("particle/fire_burning_character/fire_burning_character"),
+        xorstr("particle/fire_burning_character/fire_burning_character_nodepth"),
+        xorstr("particle/particle_flares/particle_flare_001"),
+        xorstr("particle/particle_flares/particle_flare_004"),
+        xorstr("particle/particle_flares/particle_flare_004b_mod_ob"),
+        xorstr("particle/particle_flares/particle_flare_004b_mod_z"),
+        xorstr("particle/fire_explosion_1/fire_explosion_1_bright"),
+        xorstr("particle/fire_explosion_1/fire_explosion_1b"),
+        xorstr("particle/fire_particle_4/fire_particle_4"),
+        xorstr("particle/fire_explosion_1/fire_explosion_1_oriented")
+    };
+
+    for (auto materials : fire_materials)
+    {
+        IMaterial* get_fire_material = g_MatSystem->FindMaterial(materials, TEXTURE_GROUP_OTHER);
+
+        get_fire_material->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, variables::config::misc::removewireframefire);
+        get_fire_material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, variables::config::misc::removefullfire);
+    }
 }
