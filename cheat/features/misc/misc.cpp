@@ -1,4 +1,4 @@
-#include "misc.hpp"
+﻿#include "misc.hpp"
 #include <TlHelp32.h>
 #include <Windows.h>
 
@@ -16,7 +16,7 @@ void misc::spectatorlist()
 
     std::string spectators;
     
-    for (int i = 0; i < g_GlobalVars->maxClients; i++)
+    for (int i = 1; i < g_GlobalVars->maxClients; i++)
     {
         player_t* entity = player_t::GetPlayerByIndex(i);
 
@@ -235,6 +235,11 @@ void misc::spotifymusic()
 
 void misc::changeviewmodeloffsets()
 {
+    if (!variables::config::misc::changeviewmodeloffsets)
+    {
+        return;
+    }
+
     if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
     {
         return;
@@ -264,6 +269,11 @@ void misc::changeviewmodeloffsets()
 
 void misc::changeviewmodelfov()
 {
+    if (!variables::config::misc::changeviewmodelfov)
+    {
+        return;
+    }
+
     if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
     {
         return;
@@ -285,6 +295,11 @@ void misc::changeviewmodelfov()
 
 void misc::changeweaponswayscale()
 {
+    if (!variables::config::misc::changeweaponswayscale)
+    {
+        return;
+    }
+
     if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
     {
         return;
@@ -306,6 +321,11 @@ void misc::changeweaponswayscale()
 
 void misc::forcecrosshair()
 {
+    if (!variables::config::misc::forcecrosshair)
+    {
+        return;
+    }
+
     if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
     {
         return;
@@ -328,6 +348,11 @@ void misc::forcecrosshair()
 
 void misc::recoilcrosshair()
 {
+    if (!variables::config::misc::recoilcrosshair)
+    {
+        return;
+    }
+
     if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
     {
         return;
@@ -349,7 +374,17 @@ void misc::recoilcrosshair()
 
 void misc::snipercrosshair()
 {
-    if (!variables::config::misc::snipercrosshair || !g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive() || csgo::local_player->is_scoped())
+    if (!variables::config::misc::snipercrosshair)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player || !csgo::local_player->is_alive())
+    {
+        return;
+    }
+
+    if (!csgo::local_player->is_scoped())
     {
         return;
     }
@@ -379,9 +414,32 @@ void misc::snipercrosshair()
     imguirender::get().AddRectFilled(ImVec2(width / 2, height / 2), ImVec2(width / 2 + 2, height / 2 + 2), color(255, 255, 255, 255));
 }
 
+void misc::antiafk(CUserCmd* cmd)
+{
+    if (!variables::config::misc::rankreveal)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    if (cmd->command_number % 2)
+    {
+        cmd->buttons |= 1 << 27;
+    }
+}
+
 void misc::rankreavel(CUserCmd* cmd)
 {
-    if (!variables::config::misc::rankreveal || !g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    if (!variables::config::misc::rankreveal)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
     {
         return;
     }
@@ -445,7 +503,7 @@ void misc::removeflash()
         return;
     }
 
-    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
     {
         return;
     }
@@ -460,7 +518,7 @@ void misc::removesmoke()
         return;
     }
 
-    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame())
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
     {
         return;
     }
@@ -517,5 +575,262 @@ void misc::removefire()
 
         get_fire_material->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, variables::config::misc::removewireframefire);
         get_fire_material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, variables::config::misc::removefullfire);
+    }
+}
+
+void misc::removeshadows()
+{
+    if (!variables::config::misc::removeshadow)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto r_shadows = g_CVar->FindVar(xorstr("r_shadows"))->GetFloat();
+    static auto cl_csm_enabled = g_CVar->FindVar(xorstr("cl_csm_enabled"))->GetFloat();
+    static auto cl_csm_static_prop_shadows = g_CVar->FindVar(xorstr("cl_csm_static_prop_shadows"))->GetFloat();
+    static auto cl_csm_shadows = g_CVar->FindVar(xorstr("cl_csm_shadows"))->GetFloat();
+    static auto cl_csm_world_shadows = g_CVar->FindVar(xorstr("cl_csm_world_shadows"))->GetFloat();
+    static auto cl_foot_contact_shadows = g_CVar->FindVar(xorstr("cl_foot_contact_shadows"))->GetFloat();
+    static auto cl_csm_viewmodel_shadows = g_CVar->FindVar(xorstr("cl_csm_viewmodel_shadows"))->GetFloat();
+    static auto cl_csm_rope_shadows = g_CVar->FindVar(xorstr("cl_csm_rope_shadows"))->GetFloat();
+    static auto cl_csm_translucent_shadows = g_CVar->FindVar(xorstr("cl_csm_translucent_shadows"))->GetFloat();
+    static auto cl_minimal_rtt_shadows = g_CVar->FindVar(xorstr("cl_minimal_rtt_shadows"))->GetFloat();
+    static auto cl_csm_sprite_shadows = g_CVar->FindVar(xorstr("cl_csm_sprite_shadows"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("r_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_enabled"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_static_prop_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_world_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_foot_contact_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_viewmodel_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_rope_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_translucent_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_minimal_rtt_shadows"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("cl_csm_sprite_shadows"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removeshadow)
+    {
+        g_CVar->FindVar(xorstr("r_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_enabled"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_static_prop_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_world_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_foot_contact_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_viewmodel_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_rope_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_translucent_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_minimal_rtt_shadows"))->SetValue(0);
+        g_CVar->FindVar(xorstr("cl_csm_sprite_shadows"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("r_shadows"))->SetValue(r_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_enabled"))->SetValue(cl_csm_enabled);
+        g_CVar->FindVar(xorstr("cl_csm_static_prop_shadows"))->SetValue(cl_csm_static_prop_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_shadows"))->SetValue(cl_csm_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_world_shadows"))->SetValue(cl_csm_world_shadows);
+        g_CVar->FindVar(xorstr("cl_foot_contact_shadows"))->SetValue(cl_foot_contact_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_viewmodel_shadows"))->SetValue(cl_csm_viewmodel_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_rope_shadows"))->SetValue(cl_csm_rope_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_translucent_shadows"))->SetValue(cl_csm_translucent_shadows);
+        g_CVar->FindVar(xorstr("cl_minimal_rtt_shadows"))->SetValue(cl_minimal_rtt_shadows);
+        g_CVar->FindVar(xorstr("cl_csm_sprite_shadows"))->SetValue(cl_csm_sprite_shadows);
+    }
+}
+
+void misc::removepostproccesing()
+{
+    if (!variables::config::misc::removepostproccesing)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto mat_postprocess_enable = g_CVar->FindVar(xorstr("mat_postprocess_enable"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("mat_postprocess_enable"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removepostproccesing)
+    {
+        g_CVar->FindVar(xorstr("mat_postprocess_enable"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("mat_postprocess_enable"))->SetValue(mat_postprocess_enable);
+    }
+}
+
+void misc::removepanoramablur()
+{
+    if (!variables::config::misc::removepanoramablur)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto panorama_disable_blur = g_CVar->FindVar(xorstr("@panorama_disable_blur"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("@panorama_disable_blur"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removepanoramablur)
+    {
+        g_CVar->FindVar(xorstr("@panorama_disable_blur"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("@panorama_disable_blur"))->SetValue(panorama_disable_blur);
+    }
+}
+
+void misc::removebloom()
+{
+    if (!variables::config::misc::removebloom)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto mat_disable_bloom = g_CVar->FindVar(xorstr("mat_disable_bloom"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("mat_disable_bloom"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removebloom)
+    {
+        g_CVar->FindVar(xorstr("mat_disable_bloom"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("mat_disable_bloom"))->SetValue(mat_disable_bloom);
+    }
+}
+
+void misc::removeragdoll()
+{
+    if (!variables::config::misc::removeragdoll)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto cl_disable_ragdolls = g_CVar->FindVar(xorstr("cl_disable_ragdolls"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("cl_disable_ragdolls"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removeragdoll)
+    {
+        g_CVar->FindVar(xorstr("cl_disable_ragdolls"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("cl_disable_ragdolls"))->SetValue(cl_disable_ragdolls);
+    }
+}
+
+void misc::removefog()
+{
+    if (!variables::config::misc::removefog)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static auto fog_enable = g_CVar->FindVar(xorstr("fog_enable"))->GetFloat();
+    static auto fog_enable_water_fog = g_CVar->FindVar(xorstr("fog_enable_water_fog"))->GetFloat();
+    static auto fog_enableskybox = g_CVar->FindVar(xorstr("fog_enableskybox"))->GetFloat();
+
+    g_CVar->FindVar(xorstr("fog_enable"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("fog_enable_water_fog"))->m_fnChangeCallbacks.clear();
+    g_CVar->FindVar(xorstr("fog_enableskybox"))->m_fnChangeCallbacks.clear();
+
+    if (variables::config::misc::removefog)
+    {
+        g_CVar->FindVar(xorstr("fog_enable"))->SetValue(0);
+        g_CVar->FindVar(xorstr("fog_enable_water_fog"))->SetValue(0);
+        g_CVar->FindVar(xorstr("fog_enableskybox"))->SetValue(0);
+    }
+    else
+    {
+        g_CVar->FindVar(xorstr("fog_enable"))->SetValue(fog_enable);
+        g_CVar->FindVar(xorstr("fog_enable_water_fog"))->SetValue(fog_enable_water_fog);
+        g_CVar->FindVar(xorstr("fog_enableskybox"))->SetValue(fog_enableskybox);
+    }
+}
+
+void misc::clantag()
+{
+    if (!variables::config::misc::clantag)
+    {
+        return;
+    }
+
+    if (!g_EngineClient->IsConnected() || !g_EngineClient->IsInGame() || !csgo::local_player)
+    {
+        return;
+    }
+
+    static bool reset_tag = true;
+    static float last_time = 0.0f;
+    static float next_time = 0.0f;
+    float latency = g_EngineClient->GetNetChannelInfo()->GetLatency(FLOW_INCOMING) + g_EngineClient->GetNetChannelInfo()->GetLatency(FLOW_OUTGOING);
+    int synctime = g_GlobalVars->curtime * 2 + latency;
+
+    if (synctime != last_time)
+    {
+        switch (int(g_GlobalVars->curtime * 2) % 12)
+        {
+            case 0: Utils::SetClantag("ｃｏｉｎｗａｒｅ "); break;
+            case 1: Utils::SetClantag("ｃｏｉｎｗａｒｅ ｉｓ "); break;
+            case 2: Utils::SetClantag("ｃｏｉｎｗａｒｅ ｉｓ ｂｅｓｔ "); break;
+            case 3: Utils::SetClantag("ｃｏｉｎｗａｒｅ ｉｓ ｂｅｓｔ ｃｈｅａｔ "); break;
+            case 4: Utils::SetClantag("ｉ "); break;
+            case 5: Utils::SetClantag("ｉ ｌｏｖｅ "); break;
+            case 6: Utils::SetClantag("ｉ ｌｏｖｅ ｔｅｋｎｏ "); break;
+            case 7: Utils::SetClantag("ｂｒａｚｉｌ "); break; 
+            case 8: Utils::SetClantag("ｂｒａｚｉｌａｅｓｔｅｔｉｃ "); break;
+            case 9: Utils::SetClantag("ｂｒａｚｉｌ ａｅｓｔｅｔｉｃ ｓｔｒａｆｅｓ "); break;
+            case 10: Utils::SetClantag("47 CLUB BEST "); break;
+            case 11: Utils::SetClantag("47 "); break;
+        }
+
+        last_time = synctime;
+    }
+    else
+    {
+        if (!reset_tag)
+        {
+            if (synctime != last_time)
+            {
+                Utils::SetClantag(" ");
+                last_time = synctime;
+            }
+
+            reset_tag = true;
+        }
     }
 }

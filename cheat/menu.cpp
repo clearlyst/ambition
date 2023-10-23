@@ -902,7 +902,13 @@ void menu::render()
                     ImGui::Selectable(xorstr("full smoke"), &variables::config::misc::removefullsmoke, ImGuiSelectableFlags_DontClosePopups);
                     ImGui::Selectable(xorstr("full fire"), &variables::config::misc::removefullfire, ImGuiSelectableFlags_DontClosePopups);
                     ImGui::Selectable(xorstr("flash"), &variables::config::misc::removeflash, ImGuiSelectableFlags_DontClosePopups);
-              
+                    ImGui::Selectable(xorstr("fog"), &variables::config::misc::removefog, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("bloom"), &variables::config::misc::removebloom, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("ragdoll"), &variables::config::misc::removeragdoll, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("post proccesing"), &variables::config::misc::removepostproccesing, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("panorama blur"), &variables::config::misc::removepanoramablur, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("scope"), &variables::config::misc::removescope, ImGuiSelectableFlags_DontClosePopups);
+                    ImGui::Selectable(xorstr("shadow"), &variables::config::misc::removeshadow, ImGuiSelectableFlags_DontClosePopups);
                     ImGui::EndCombo();
                 }
                 if (variables::config::misc::removeflash)
@@ -921,8 +927,10 @@ void menu::render()
 
                 ImGui::PushFont(textmenufont);
                 checkbox(xorstr("auto accept"), &variables::config::misc::autoaccept);
+                checkbox(xorstr("anti afk"), &variables::config::misc::antiafk);
                 checkbox(xorstr("rank reveal"), &variables::config::misc::rankreveal);
                 checkbox(xorstr("use key spammer"), &variables::config::misc::usekeyspam); 
+                checkbox(xorstr("clantag"), &variables::config::misc::clantag);
                 ImGui::PopFont();
             }
             ImGui::EndChild();
@@ -982,7 +990,6 @@ void menu::render()
                 checkbox(xorstr("edge bug"), &variables::config::movement::edgebug); ImGui::SameLine(); keybind(xorstr("edge bug key"), &variables::config::movement::edgebug_key, &variables::config::movement::edgebug_key_type);
                 if (variables::config::movement::edgebug)
                 {
-                    checkbox(xorstr("edge bug block buttons"), &variables::config::movement::edgebug_blockbuttons);
                     checkbox(xorstr("edge bug asist to edge/advanced detection"), &variables::config::movement::edgebug_strafetoedge);
                     sliderint(xorstr("edge bug ticks"), &variables::config::movement::edgebug_ticks, 0, 128, "%d", ImGuiSliderFlags_AlwaysClamp);
                     sliderfloat(xorstr("edge bug strength lock"), &variables::config::movement::edgebug_lock, 1.0f, 100.0f, "%.2f", ImGuiSliderFlags_AlwaysClamp);

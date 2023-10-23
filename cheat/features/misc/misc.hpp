@@ -17,6 +17,8 @@ public:
 
 	void snipercrosshair();
 
+	void antiafk(CUserCmd* cmd);
+
 	void spotifymusic();
 
 	void changeviewmodeloffsets();
@@ -40,6 +42,20 @@ public:
 	void removesmoke();
 
 	void removefire();
+
+	void removeshadows();
+
+	void removepostproccesing();
+
+	void removepanoramablur();
+
+	void removebloom();
+
+	void removeragdoll();
+
+	void removefog();
+
+	void clantag();
 
 private:
     std::string spotifytitle = "";

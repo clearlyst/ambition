@@ -280,6 +280,11 @@ void __stdcall paint_traverse::run(vgui::VPANEL panel, bool force_repaint, bool 
 {
 	const auto panel_name = fnv::hash(g_VGuiPanel->get_panel_name(panel));
 
+	if (variables::config::misc::removescope && strstr(g_VGuiPanel->get_panel_name(panel), xorstr("HudZoom")))
+	{
+		return;
+	}
+
 	switch (panel_name)
 	{
 	    case fnv::hash("MatSystemTopPanel"):
@@ -319,10 +324,12 @@ bool __stdcall create_move::run(float input_sample_frametime, CUserCmd* cmd)
 
 	csgo::local_player = static_cast<player_t*>(g_EntityList->GetClientEntity(g_EngineClient->GetLocalPlayer()));
 
+	misc::get().antiafk(cmd);
 	misc::get().rankreavel(cmd);
 	misc::get().usespammer(cmd);
 	misc::get().forcecrosshair();
 	misc::get().recoilcrosshair();
+	misc::get().clantag();
 
 	movement::get().resetdetection();
 	movement::get().pre_prediction(cmd);

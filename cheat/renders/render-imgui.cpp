@@ -82,6 +82,7 @@ void setupfonts()
 	std::string segoe_ui_semibold_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\seguisb.ttf");
 	std::string tahoma_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\tahoma.ttf");
 	std::string tahoma_bold_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\tahomabd.ttf");
+	std::string verdana_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\verdana.ttf");
 	std::string verdana_bold_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\verdanab.ttf");
 	std::string lucida_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\lucon.ttf");
 	std::string weapon_icon_font_directory = (std::string)windows_directory + xorstr("\\Fonts\\astriumwep.ttf");
@@ -94,8 +95,8 @@ void setupfonts()
 	iconmenufont = io.Fonts->AddFontFromFileTTF(menu_icon_font_directory.c_str(), 16.0f, &menufontconfig, ranges);
 	screenmessagefont = io.Fonts->AddFontFromFileTTF(lucida_font_directory.c_str(), 10.0f, &screenmessagefontconfig, io.Fonts->GetGlyphRangesCyrillic());
 	indicatorsfont = io.Fonts->AddFontFromFileTTF(verdana_bold_font_directory.c_str(), 29.0f, &indicatorfontconfig, io.Fonts->GetGlyphRangesCyrillic());
-	firstespfont = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 12.0f, &firstespfontconfig, io.Fonts->GetGlyphRangesCyrillic());
-	secondespfont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 12.0f, &secondespfontconfig, io.Fonts->GetGlyphRangesCyrillic());
+	firstespfont = io.Fonts->AddFontFromFileTTF(verdana_font_directory.c_str(), 12.0f, &firstespfontconfig, io.Fonts->GetGlyphRangesCyrillic());
+	secondespfont = io.Fonts->AddFontFromFileTTF(verdana_font_directory.c_str(), 12.0f, &secondespfontconfig, io.Fonts->GetGlyphRangesCyrillic());
 	screenmiscfont = io.Fonts->AddFontFromFileTTF(tahoma_bold_font_directory.c_str(), 12.0f, &screenmiscfontconfig, io.Fonts->GetGlyphRangesCyrillic());
 	weaponiconfont = io.Fonts->AddFontFromFileTTF(weapon_icon_font_directory.c_str(), 12.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 	interwebztitlefont = io.Fonts->AddFontFromFileTTF(tahoma_font_directory.c_str(), 13.0f, &interwebzconfig, io.Fonts->GetGlyphRangesCyrillic());

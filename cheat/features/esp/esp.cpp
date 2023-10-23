@@ -243,7 +243,7 @@ void esp::name(player_t* target, color clr)
 	std::string name = player_info.szName;
 	std::string text = player_info.fakeplayer ? xorstr("[bot] ") + name : name;
 
-	imguirender::get().AddText(firstespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.top - 14.0f), text, clr, color(0, 0, 0), true, false, true, false);
+	imguirender::get().AddText(firstespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.top - 14.0f), text, clr, color(0, 0, 0), false, true, true, false);
 }
 
 void esp::bottom_bar(player_t* target, color clr)
@@ -316,21 +316,21 @@ void esp::bottom_bar(player_t* target, color clr)
 
 	if (variables::config::esp::health)
 	{
-		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), health_text, variables::config::esp::health_rgb ? color(red, green, 0, 255) : clr, color(0, 0, 0), true, false, true, false);
+		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), health_text, variables::config::esp::health_rgb ? color(red, green, 0, 255) : clr, color(0, 0, 0), false, true, true, false);
 		
 	    offset_bottom += 12;
     }
 
 	if (variables::config::esp::weapon_icon)
 	{
-		imguirender::get().AddText(weaponiconfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), weapon->weapon_icons(), clr, color(0, 0, 0), true, false, true, false);
+		imguirender::get().AddText(weaponiconfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), weapon->weapon_icons(), clr, color(0, 0, 0), false, true, true, false);
 
 		offset_bottom += 12;
 	}
 
 	if (variables::config::esp::weapon)
 	{
-		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), weapon->weapon_name(), clr, color(0, 0, 0), true, false, true, false);
+		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), weapon->weapon_name(), clr, color(0, 0, 0), false, true, true, false);
 
 		offset_bottom += 12;
 	}
@@ -339,7 +339,7 @@ void esp::bottom_bar(player_t* target, color clr)
 	{
 		if (weapon->isgun())
 		{
-			imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), xorstr("[") + currentammo_text + xorstr("|") + maxammo_text + xorstr("]"), clr, color(0, 0, 0), true, false, true, false);
+			imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.left + (bbox.right - bbox.left) / 2, bbox.bottom + offset_bottom), xorstr("[") + currentammo_text + xorstr("|") + maxammo_text + xorstr("]"), clr, color(0, 0, 0), false, true, true, false);
 
 			offset_bottom += 12;
 		}
@@ -394,7 +394,7 @@ void esp::flags(player_t* target, color clr)
 
 	for (auto text : flags) 
 	{
-		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.right + 3, bbox.top + position), text.first, text.second, color(0, 0, 0), true, false);
+		imguirender::get().AddText(secondespfont, 12.0f, ImVec2(bbox.right + 3, bbox.top + position), text.first, text.second, color(0, 0, 0), false, true);
 
 		position += 12;
 	}
